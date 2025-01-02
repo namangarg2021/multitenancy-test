@@ -1,0 +1,47 @@
+quarkus:
+  http:
+    port: 8005
+    root-path: /api
+  hibernate-orm:
+    validation:
+      enabled: false
+    multitenant: SCHEMA
+    database:
+      generation: none
+    log:
+      sql: true
+      bind-parameters: true
+  datasource:
+    db-kind: postgresql
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/multitenancy
+    username: postgres
+    password: root
+    hibernate:
+      default-schema: shared
+      ddl-generation: none
+  flyway:
+    migrate-at-start: true
+    baseline-version: 1.0.0
+    baseline-on-migrate: true
+    schemas: shared,tenant1,tenant2
+    create-schemas: true
+    default-schema: shared
+kafka:
+  config:
+    enabled: true
+  bootstrap:
+    servers: localhost:9092
+  auto:
+    create:
+      topics:
+        enable: true
+
+mp:
+  messaging:
+    incoming:
+      product-request:
+        kafka-configuration: kafkaConsumerConfig
+        connector: smallrye-kafka
+        topic: product-request
+        failure-strategy: ignore
