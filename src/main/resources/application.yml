@@ -11,6 +11,25 @@ quarkus:
     log:
       sql: true
       bind-parameters: true
+  oidc:
+    application-type: service
+    token-path: https://wp-dev-1-app.auth.eu-west-1.amazoncognito.com/oauth2/token
+    auth-server-url: https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_fRDu5C1zN
+    auth-url: https://wp-dev-1-app.auth.eu-west-1.amazoncognito.com/oauth2/authorize
+    client-id: 2av773qnrqo6k9q7r64mb64d20
+    credentials:
+      secret: ovqotc8bvu8nuqfs8bg2r72enu5h5oauviuvla4urabh4ttv1p0
+    pool-id: eu-west-1_fRDu5C1zN
+    redirect-url: https://wp.dev-1.build.dlt
+    region: eu-west-1
+    scope: profile+openid
+  oidc-client:
+    application-type: service
+    token-path: ${quarkus.oidc.token-path}
+    client-id: ${quarkus.oidc.client-id}
+    credentials:
+      secret: ${quarkus.oidc.credentials.secret}
+    grant.type: client
   datasource:
     db-kind: postgresql
     jdbc:
