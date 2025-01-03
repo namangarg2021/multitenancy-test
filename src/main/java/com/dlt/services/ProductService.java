@@ -7,6 +7,7 @@ import com.dlt.tenant.TenantContext;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import java.util.List;
@@ -26,15 +27,11 @@ public class ProductService {
         productRepository.persist(product);
     }
 
-    public String fetchProductsForTenant(String tenantId) {
+    public String fetchProductsForTenant() {
         try {
-            // Set the tenant ID in the context
-            TenantContext.setCurrentTenant(tenantId);
-
-            // Make the REST client call
-            return externalApiClient.getProducts();
+            Response response = externalApiClient.getProducts();
+            return response.readEntity(String.class);
         } finally {
-            // Clear the tenant ID from the context
             TenantContext.clear();
         }
     }

@@ -22,7 +22,7 @@ quarkus:
       ddl-generation: none
   rest-client:
     external-api:
-      url: http://localhost:8005
+      url: http://localhost:8082
       scope: jakarta.inject.Singleton
   flyway:
     migrate-at-start: true

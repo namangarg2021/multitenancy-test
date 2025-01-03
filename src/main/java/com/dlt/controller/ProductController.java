@@ -28,8 +28,8 @@ public class ProductController {
     }
 
     @GET
-    @Path("/tenants/{tenant}")
-    public Response fetchProductsForTenant(@PathParam("tenant") String tenantId){
-        return Response.ok(service.fetchProductsForTenant(tenantId)).build();
+    @Path("/tenant")
+    public Response fetchProductsForTenant(){
+        return Response.ok(service.fetchProductsForTenant()).build();
     }
 }
