@@ -20,6 +20,10 @@ quarkus:
     hibernate:
       default-schema: shared
       ddl-generation: none
+  rest-client:
+    external-api:
+      url: http://localhost:8005
+      scope: jakarta.inject.Singleton
   flyway:
     migrate-at-start: true
     baseline-version: 1.0.0

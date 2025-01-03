@@ -8,7 +8,7 @@ import jakarta.ws.rs.core.Response;
 
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
-@Path("/{tenant}/products")
+@Path("products")
 @Consumes(APPLICATION_JSON)
 @Produces(APPLICATION_JSON)
 public class ProductController {
@@ -17,8 +17,19 @@ public class ProductController {
     ProductService service;
 
     @POST
-    public Response createProduct(@PathParam("tenant") String tenant, Product product) {
+    public Response createProduct(Product product) {
         service.createProduct(product);
-        return Response.ok().entity(product).build();
+        return Response.ok(product).build();
+    }
+
+    @GET
+    public Response getAllProducts(){
+        return Response.ok(service.getAllProducts()).build();
+    }
+
+    @GET
+    @Path("/tenants/{tenant}")
+    public Response fetchProductsForTenant(@PathParam("tenant") String tenantId){
+        return Response.ok(service.fetchProductsForTenant(tenantId)).build();
     }
 }
